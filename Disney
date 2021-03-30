@@ -40,4 +40,4 @@ for i in range(10):
 
 df = pd.DataFrame(data = disney_revenue, columns = ['year', 'revenue'])
 
-df ['revenue'].describe()
+df.plot(x = 'year', y = 'revenue')
