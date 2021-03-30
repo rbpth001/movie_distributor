@@ -1,0 +1,43 @@
+%matplotlib inline
+import requests
+import pandas as pd
+from bs4 import BeautifulSoup
+
+year_list = []
+real_year_list = []
+revenue_list = []
+real_revenue_list = []
+disney_revenue = []
+
+code = requests.get('https://www.the-numbers.com/market/distributor/Walt-Disney')
+soup = BeautifulSoup(code.text, 'html.parser')
+
+year = soup.select('.data a')
+for num in year:
+    year_list.append(num.text)
+for i in range(0, len(year_list), 3):
+    real_year_list.append(year_list[i])
+
+real_year_list = real_year_list[15: 25]
+
+
+revenue = soup.select('.data')
+for cash in revenue:
+    cash_text = cash.text.strip('$')
+    cash_text = cash_text.replace(',', '')
+    revenue_list.append(cash_text)
+
+revenue_list = revenue_list[158:222]
+
+for i in range(0, len(revenue_list), 7):
+    real_revenue_list.append(revenue_list[i])
+
+for i in range(10):
+    temp_list = []
+    temp_list.append(int(real_year_list[i]))
+    temp_list.append(int(real_revenue_list[i]))
+    disney_revenue.append(temp_list)
+
+df = pd.DataFrame(data = disney_revenue, columns = ['year', 'revenue'])
+
+df ['revenue'].describe()
