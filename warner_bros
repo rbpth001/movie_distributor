@@ -35,7 +35,7 @@ for i in range(0, len(revenue_list), 7):
 for i in range(10):
     temp_list = []
     temp_list.append(int(real_year_list[i]))
-    temp_list.append(int(real_revenue_list[i]))
+    temp_list.append(int(real_revenue_list[i])/10000000)
     disney_revenue.append(temp_list)
 
 df = pd.DataFrame(data = disney_revenue, columns = ['year', 'revenue'])
